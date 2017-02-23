@@ -23,20 +23,25 @@ The goals / steps of this project are the following:
 
 ###1. Describe your pipeline. As part of the description, explain how you modified the draw_lines() function.
 
-My pipeline consisted of 5 steps. First, I converted the images to grayscale,
-then I ran a Gaussian blur on the grayscale image to smooth out the noise in the
-image. I then performed a canny edge detection to isolate the edges in the
-image. I then applied a mask to the canny edge image to focus on the area
-directly in front of the car. This obviously assumes the camera angle is fixed.
-After the mask was applied I ran a hough transform to determine the major lines
-in the area of interest. At this point, the lines detected by the hough
-transform were split into those falling on the left and right sides by taking
-both the line segments slopes and x-coordinates into consideration. I finally
-ran RANSAC on the line segments (per side) to predict the linear model, while
-ignoring the outliers. I then used the RANSAC model to predict a line segment,
-which allowed me to solve for the slope (m) and b for the line equation `y = mx +
-b`. I then calculated the two end points for a y at the bottom and a y near the
-middle of the image.
+My pipeline consisted of 8 steps:
+
+1. Convert the images to grayscale
+2. Run a Gaussian blur on the grayscale image to smooth out the noise in the
+   image. 
+3. Run canny edge detection to isolate the edges in the image. 
+4. Apply a mask to the canny edge image to focus on the area directly in front
+   of the car. This obviously assumes the camera angle is fixed.
+5. After the mask is applied, run a hough transform to determine the major lines
+   in the area of interest. 
+6. The lines detected by the hough transform are split into those falling on
+   the left and right sides by taking both the line segments slopes and
+   x-coordinates into consideration. 
+7. Run RANSAC on the line segments (per side) to predict the linear
+   model, while ignoring the outliers. 
+8. Use the RANSAC model to predict a line segment, which allows one to solve for
+   the slope (`m`) and `b` for the line equation `y = mx + b`. From that the two
+   end points for a `y` at the bottom and a `y` near the middle of the image can
+   be calculated.
 
 I tuned the hough parameters to allow *more* line segments rather than less to
 give RANSAC more data points. Additionally, I 'remembered' the hough lines from
