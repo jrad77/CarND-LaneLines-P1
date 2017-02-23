@@ -73,10 +73,10 @@ To improve this it would likely be better to keep a longer 'memory' of past line
 segments, instead of just the very last ones. These could then be weighted in
 importance, the newest line segments being weighted higher than the older.
 
-Additionally, we could use only the line segments that were considered as
-inliers by RANSAC. We could also possibly use RANSAC to interpolate 'fake' data
-points along the line to further reinforce the line that was previously being
-tracked to prevent radical jumps in the line position.
+Additionally, for the remembered past lines we could use only the line segments
+that were considered as inliers by RANSAC. We could also possibly use RANSAC to
+interpolate 'fake' data points along the line to further reinforce the line that
+was previously being tracked to prevent radical jumps in the line position.
 
 Finally, I'm sure there is a fair amount still to be achieved by tuning the
 various parameters already implemented to get better line segments to choose
